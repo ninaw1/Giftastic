@@ -21,19 +21,6 @@ function makeButton(searchTerm) {
     console.log(element)
 }
 
-// for(var i = 0; i < topics.length; i++) {
-//     var button = document.querySelector("button").textContent(topics[i]);
-//     button.setAttribute("data-cute", topics[i]);
-    
-//     if(button.classList) {
-//     button.classList.add("cute-button");
-//     } else {
-//     button.className += '' + className 
-//     }
-    
-//     document.querySelector("#button-group").appendChild(button)
-// }
-
 const getGIF = cute => {
     console.log('cute:::: ', cute)
     // document.querySelector('#gifDiv').innerHTML = ''
@@ -47,22 +34,27 @@ const getGIF = cute => {
                     url : animated,
                     fixed_height
                 } = gif.images
+
+                let {
+                    url : still, 
+                    fixed_height_still
+                } = gif.images
+                document.querySelector('#gifDiv').innerHTML = `
+                <img class="gifImg" src="${still}" alt="${cute}Gif" data-still="${still}" data-animated="${animated}">
+                `
+                let gifElem = document.createElement('img')
+                gifElem.setAttribute('src', gif.images.fixed_height.url)
+                document.querySelector('#gifDiv').append(gifElem)
             })
             makeButton(cute)
-            // 
-            // let { url : still } = r.data.images.fixed_height_still
-            // document.querySelector('#gifDiv').innerHTML = `
-            //     <img class="gifImg" src="${still}" alt="${cute}Gif" data-still="${still}" data-animated="${animated}">
-            // `
-            // let gifElem = document.createElement('img')
-            // gifElem.setAttribute('src', gif.images.fixed_height.url)
-            // document.querySelector('#gifDiv').append(gifElem)
         })
         .catch(e => console.error(e))
 }
 
 const pausePlay = gif => {
-    let { animated, still } = gif.dataset
+    let { 
+        animated, still
+    } = gif.dataset
     toggle = !toggle
     gif.setAttribute('src', toggle ? animated : still)
 }

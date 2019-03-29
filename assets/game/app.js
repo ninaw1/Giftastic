@@ -31,17 +31,17 @@ const getGIF = cute => {
             r.data.forEach((gif) => {
                 console.log(gif.images)
                 let {
-                    url : animated,
-                    fixed_height
-                } = gif.images
+                    url : animated
+                } = gif.images.fixed_height
 
                 let {
-                    url : still, 
-                    fixed_height_still
-                } = gif.images
+                    url : still
+                } = gif.images.fixed_height_still
+
                 document.querySelector('#gifDiv').innerHTML = `
                 <img class="gifImg" src="${still}" alt="${cute}Gif" data-still="${still}" data-animated="${animated}">
                 `
+
                 let gifElem = document.createElement('img')
                 gifElem.setAttribute('src', gif.images.fixed_height.url)
                 document.querySelector('#gifDiv').append(gifElem)
@@ -53,7 +53,8 @@ const getGIF = cute => {
 
 const pausePlay = gif => {
     let { 
-        animated, still
+        animated, 
+        still
     } = gif.dataset
     toggle = !toggle
     gif.setAttribute('src', toggle ? animated : still)
@@ -65,6 +66,7 @@ document.addEventListener('click', ({ target }) => {
         getGIF(target.dataset.cute)
         break
         case 'gifImg':
+        pausePlay(target)
         break
     }
 })

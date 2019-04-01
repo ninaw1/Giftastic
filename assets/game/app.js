@@ -11,10 +11,8 @@ var topics = [
 ]
 
 function makeButton(searchTerm) {
-    console.log('searchTerm:::: ', searchTerm)
+    // console.log('searchTerm:::: ', searchTerm)
     var element = document.createElement("button")
-    // element.appendChild(document.createTextNode("gif"))
-    // var gifDiv = document.getElementById("gifDiv")
     element.innerHTML = searchTerm
     document.getElementById("gifDiv").append(element)
 
@@ -22,12 +20,11 @@ function makeButton(searchTerm) {
 }
 
 const getGIF = cute => {
-    console.log('cute:::: ', cute)
-    // document.querySelector('#gifDiv').innerHTML = ''
+    // console.log('cute:::: ', cute)
     fetch(`https://api.giphy.com/v1/gifs/search?q=${cute}&api_key=2sa4vgpws5n5Uijh7KeMMbemwwQcff5Q&rating=g`)
     .then(r => r.json())
     .then(r => {
-            console.log(r)
+            // console.log(r)
             r.data.forEach((gif) => {
                 console.log(gif.images)
                 let {
@@ -43,7 +40,7 @@ const getGIF = cute => {
                 `
 
                 let gifElem = document.createElement('img')
-                gifElem.setAttribute('src', gif.images.fixed_height.url)
+                gifElem.setAttribute('src', url)
                 document.querySelector('#gifDiv').append(gifElem)
             })
             makeButton(cute)
